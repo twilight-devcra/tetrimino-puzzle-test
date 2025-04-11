@@ -43,7 +43,6 @@ func place_piece(piece:DraggablePiece) -> void:
 				overlapped = true
 				break
 		
-		print(overlapped)
 		if not overlapped:
 			break
 			

@@ -1,10 +1,15 @@
 extends Node2D
+class_name Problem
 
 @export var grid_width: int = 6
 @export var grid_height: int = 6
 @export var block_size: float = 80.0
+@export var piece_num: int = 4
 var answer_grid: Array
 var pieces: Array[DraggablePiece] = []
+var preloaded: bool = false
+
+signal completed
 
 func make_answer() -> bool:
 	# init answer grid
@@ -35,7 +40,8 @@ func make_answer() -> bool:
 		
 	return true
 				
-				
+# 1. checks whether the piece can be placed. returns -1 if it can't.
+# 2. returns the number of surrounding tils of the piece that are filled with other pieces.				
 func cell_neighbors(piece:DraggablePiece, x:int, y:int) -> int:
 	var count = 0
 	var offsets:Array[Vector2i] = [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]
@@ -56,10 +62,23 @@ func cell_neighbors(piece:DraggablePiece, x:int, y:int) -> int:
 				count += 1 
 	return count
 
-func init(grid_width:int, grid_height:int, block_size:float) -> void:
+func init(grid_width:int, grid_height:int, block_size:float, piece_num:int) -> void:
 	self.grid_width = grid_width
 	self.grid_height = grid_height
 	self.block_size = block_size
+	self.piece_num = piece_num
+	self.make_question()
+
+func make_question() -> void:
+	self.preloaded = true
+	var pieces = Pieces.new()
+	
+	for num in range(self.piece_num):
+		self.add_piece(pieces.random_four())
+		
+	while not self.make_answer():
+		pass
+	
 	
 func add_piece(points: Array[Vector2i]):
 	var piece = $PieceSpawn.add_piece(points, self.block_size)
@@ -68,13 +87,8 @@ func add_piece(points: Array[Vector2i]):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.add_piece(PackedVector2Array([Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]))
-	self.add_piece(PackedVector2Array([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]))
-	self.add_piece(PackedVector2Array([Vector2i(0, 0), Vector2i(1, 0), Vector2i(1, 1), Vector2i(2, 1)]))
-	self.add_piece(PackedVector2Array([Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2), Vector2i(0, 3)]))
-	
-	while not self.make_answer():
-		pass
+	if not self.preloaded:
+		self.make_question()
 	
 	$Grid.init(self.grid_width, self.grid_height, self.block_size, self.answer_grid)
 	$Grid.completed.connect(self.on_grid_completed)
@@ -93,7 +107,7 @@ func on_piece_placed(piece:DraggablePiece) -> void:
 	piece.grid_cell_position = cell
 	
 func on_grid_completed() -> void:
-	print('Complete!')
+	self.completed.emit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

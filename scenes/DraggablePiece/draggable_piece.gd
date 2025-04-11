@@ -16,7 +16,6 @@ func calculate_size(squares:Array[Vector2i], size:float) -> Vector2i:
 	for square in squares:
 		max_size = max_size.max(square)
 		
-	#return (max_size + Vector2i(1, 1)) * size
 	return max_size + Vector2i(1, 1)
 
 func collision_box(squares:Array[Vector2i], size:float) -> RectangleShape2D:
@@ -39,8 +38,6 @@ func init(id:int, color:Color, size:float, squares:Array[Vector2i]) -> void:
 	$DragArea/CollisionShape2D.shape = col_box
 	$DragArea/CollisionShape2D.position = self.piece_size * size / 2
 	
-	print($DragArea/CollisionShape2D.shape.size)
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.position = self.initial_position

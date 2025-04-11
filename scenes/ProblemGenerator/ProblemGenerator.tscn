@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq81y375syufd"]
+
+[ext_resource type="Script" uid="uid://bvodx557v80id" path="res://scenes/ProblemGenerator/problem_generator.gd" id="1_nioeh"]
+
+[node name="ProblemGenerator" type="Node2D"]
+script = ExtResource("1_nioeh")
