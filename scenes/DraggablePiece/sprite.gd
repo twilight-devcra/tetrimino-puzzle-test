@@ -5,7 +5,7 @@ var size:float
 var squares:Array[Rect2i]
 @export var border_width:float = 3.0
 
-func init(color:Color, size:float, squares:Array[Vector2i]) -> void:
+func init(color:Color, size:float, squares) -> void:
 	self.color = color
 	self.size = size
 	self.squares = []

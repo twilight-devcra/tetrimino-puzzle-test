@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl13vw2wawubc"]
+
+[ext_resource type="Script" uid="uid://dqp6n2rdmdva6" path="res://scenes/Problem/problem.gd" id="1_bp5oy"]
+[ext_resource type="PackedScene" uid="uid://cbdlr7ketpbsy" path="res://scenes/Grid/grid.tscn" id="2_0hv8y"]
+[ext_resource type="Script" uid="uid://714yftst7lup" path="res://scenes/Problem/piece_spawn.gd" id="3_0hv8y"]
+
+[node name="Problem" type="Node2D"]
+script = ExtResource("1_bp5oy")
+block_size = 60.0
+
+[node name="Grid" parent="." instance=ExtResource("2_0hv8y")]
+position = Vector2(626, 91)
+cell_size = 60
+border_color = Color(0.54, 0.54, 0.54, 1)
+answer_color = Color(0.972549, 0.972549, 1, 1)
+
+[node name="PieceSpawn" type="Node2D" parent="."]
+position = Vector2(24, 23)
+script = ExtResource("3_0hv8y")
+width = 550.0

@@ -2,19 +2,21 @@ extends Area2D
 
 signal dragged
 signal dropped
-var lifted = false
+signal lifted
+var is_lifted = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and not event.pressed:
-		if self.lifted:
-			self.lifted = false
+		if self.is_lifted:
+			self.is_lifted = false
 			self.dropped.emit()
-	if self.lifted and event is InputEventMouseMotion:
+	if self.is_lifted and event is InputEventMouseMotion:
 		self.dragged.emit(event.relative)
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed:
-		self.lifted = true
+		self.lifted.emit()
+		self.is_lifted = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

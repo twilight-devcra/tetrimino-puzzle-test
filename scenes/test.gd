@@ -23,7 +23,7 @@ func _ready() -> void:
 	
 	
 func on_piece_placed(piece:DraggablePiece) -> void:
-	piece.position = self.grid.snap_to_grid(piece.position, piece.size)
+	piece.position = self.grid.snap_to_grid(piece.position, piece.block_size)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
