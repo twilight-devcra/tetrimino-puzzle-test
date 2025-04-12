@@ -1,6 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://cq81y375syufd"]
+[gd_scene load_steps=3 format=3 uid="uid://cq81y375syufd"]
 
 [ext_resource type="Script" uid="uid://bvodx557v80id" path="res://scenes/ProblemGenerator/problem_generator.gd" id="1_nioeh"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_nioeh"]
+font_size = 36
+font_color = Color(1, 1, 0.470588, 1)
+
 [node name="ProblemGenerator" type="Node2D"]
 script = ExtResource("1_nioeh")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = 162.0
+offset_top = 520.0
+offset_right = 405.0
+offset_bottom = 576.0
+text = "이 조각들을..."
+label_settings = SubResource("LabelSettings_nioeh")
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+offset_left = 579.0
+offset_top = 457.0
+offset_right = 1059.0
+offset_bottom = 572.0
+text = "흰 구역에 서로 겹치지 않게
+모두 배치하세요!"
+label_settings = SubResource("LabelSettings_nioeh")
+horizontal_alignment = 1

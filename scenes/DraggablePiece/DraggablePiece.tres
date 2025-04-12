@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://kai7jk86hphi"]
+
+[sub_resource type="Shader" id="Shader_i8fr1"]
+code = "shader_type canvas_item;
+
+uniform vec3 solid_color:source_color;
+uniform float amount: hint_range(0.0,1.0);
+varying vec4 vertex_color;
+
+void vertex() {
+	vertex_color = COLOR;
+}
+
+void fragment() {
+    COLOR = vec4(mix(vertex_color.rgb, solid_color, amount), vertex_color.a);
+}"
+
+[resource]
+shader = SubResource("Shader_i8fr1")
+shader_parameter/solid_color = Color(1, 1, 1, 0)
+shader_parameter/amount = 0.0

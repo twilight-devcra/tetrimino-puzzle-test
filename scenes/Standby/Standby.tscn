@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5u73j625qymh"]
+
+[ext_resource type="Script" uid="uid://h5lrfysuja7u" path="res://scenes/Standby/standby.gd" id="1_dd822"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_maru5"]
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_iyg0j"]
+font_size = 300
+
+[node name="Standby" type="Node2D"]
+script = ExtResource("1_dd822")
+
+[node name="Header" type="Label" parent="."]
+offset_top = 50.0
+offset_right = 1152.0
+offset_bottom = 134.0
+text = "채우는 텍스트"
+label_settings = SubResource("LabelSettings_maru5")
+horizontal_alignment = 1
+
+[node name="Countdown" type="Label" parent="."]
+offset_top = 100.0
+offset_right = 1152.0
+offset_bottom = 509.0
+text = "30"
+label_settings = SubResource("LabelSettings_iyg0j")
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

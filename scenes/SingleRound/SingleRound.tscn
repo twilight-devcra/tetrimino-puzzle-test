@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3ti1kfkl2n65"]
+
+[ext_resource type="Script" uid="uid://ddwxate18c36b" path="res://scenes/SingleRound/single_round.gd" id="1_1488a"]
+[ext_resource type="PackedScene" uid="uid://cq81y375syufd" path="res://scenes/ProblemGenerator/ProblemGenerator.tscn" id="1_hg4ig"]
+[ext_resource type="Script" uid="uid://cw6dnqwhq6xla" path="res://scenes/SingleRound/timer_bar.gd" id="2_b2s2i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b2s2i"]
+bg_color = Color(1, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1488a"]
+font_size = 50
+
+[node name="SingleRound" type="Node2D"]
+script = ExtResource("1_1488a")
+
+[node name="ProblemGenerator" parent="." instance=ExtResource("1_hg4ig")]
+
+[node name="TimerBar" type="Node2D" parent="."]
+position = Vector2(0, 619)
+script = ExtResource("2_b2s2i")
+
+[node name="ProgressBar" type="ProgressBar" parent="TimerBar"]
+offset_right = 1152.0
+offset_bottom = 30.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_b2s2i")
+max_value = 300.0
+value = 150.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="TimerBar"]
+one_shot = true
+
+[node name="Score" type="Label" parent="."]
+offset_left = 926.0
+offset_top = 549.0
+offset_right = 1139.0
+offset_bottom = 619.0
+text = "점수: 0"
+label_settings = SubResource("LabelSettings_1488a")
+
+[connection signal="solved" from="ProblemGenerator" to="." method="_on_problem_generator_solved"]
+[connection signal="timeout" from="TimerBar/Timer" to="." method="_on_timer_timeout"]

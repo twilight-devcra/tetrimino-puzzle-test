@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://8c5gxnbxpo61"]
+
+[ext_resource type="Script" uid="uid://vkpneq0ih13j" path="res://scenes/Session/session.gd" id="1_llyuw"]
+
+[node name="Session" type="Node2D"]
+script = ExtResource("1_llyuw")
+tutorial_time = 45.0

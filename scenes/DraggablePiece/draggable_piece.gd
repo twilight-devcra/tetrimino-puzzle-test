@@ -59,4 +59,4 @@ func on_dropped() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	self.modulate = Color.ALICE_BLUE

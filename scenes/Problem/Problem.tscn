@@ -12,7 +12,6 @@ block_size = 60.0
 position = Vector2(626, 91)
 cell_size = 60
 border_color = Color(0.54, 0.54, 0.54, 1)
-answer_color = Color(0.972549, 0.972549, 1, 1)
 
 [node name="PieceSpawn" type="Node2D" parent="."]
 position = Vector2(24, 23)
