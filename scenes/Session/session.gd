@@ -1,7 +1,11 @@
 extends Node2D
+class_name Session
 
 @export var tutorial_time:float = 30.0
 @export var actual_time:float = 300.0
+@export var do_tutorial:bool = true
+@export var piece_drop_chance:float = 0.0
+@export var piece_num:int = 4
 
 var score:int
 
@@ -9,9 +13,12 @@ var standby_factory = preload("res://scenes/Standby/Standby.tscn")
 var round_factory = preload("res://scenes/SingleRound/SingleRound.tscn")
 var final_results_factory = preload("res://scenes/FinalResult/FinalResult.tscn")
 
-func init(tutorial_time:float=30.0, actual_time:float=300.0) -> void:
+func init(tutorial_time:float, actual_time:float, do_tutorial:bool, piece_drop_chance:float, piece_num:int) -> void:
 	self.tutorial_time = tutorial_time
 	self.actual_time = actual_time
+	self.do_tutorial = do_tutorial
+	self.piece_drop_chance = piece_drop_chance
+	self.piece_num = piece_num
 	
 func standby(header:String) -> void:
 	var standby_scene = standby_factory.instantiate()
@@ -24,7 +31,7 @@ func standby(header:String) -> void:
 	
 func round(time:float, is_tutorial:bool) -> void:
 	var single_round = round_factory.instantiate()
-	single_round.init(time, is_tutorial)
+	single_round.init(time, self.piece_num, self.piece_drop_chance, is_tutorial)
 	self.add_child(single_round)
 	
 	self.score = await single_round.round_ended
@@ -51,6 +58,11 @@ func start_actual() -> void:
 	await self.round(self.actual_time, false)
 
 func _ready() -> void:
-	await self.start_tutorial()
+	if self.do_tutorial:
+		await self.start_tutorial()
 	await self.start_actual()
 	await self.final_results()
+	
+	var options_scene = load("res://scenes/Settings/Settings.tscn").instantiate()
+	self.get_tree().root.add_child(options_scene)
+	self.get_node('/root/Session').queue_free()

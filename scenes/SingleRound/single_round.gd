@@ -6,9 +6,13 @@ var is_tutorial:bool
 
 signal round_ended
 
-func init(timer:float, is_tutorial:bool=false) -> void:
+func init(timer:float, piece_num:int, drop_chance:float, is_tutorial:bool=false) -> void:
 	self.timer = timer
 	self.is_tutorial = is_tutorial
+	$ProblemGenerator.piece_num = piece_num
+	if not is_tutorial:
+		# don't drop pieces during the tutorial.
+		$ProblemGenerator.drop_chance = drop_chance
 
 func _ready() -> void:
 	$TimerBar.start_timer(self.timer)

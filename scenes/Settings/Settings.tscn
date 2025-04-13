@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgohjgx6g87hs"]
+
+[ext_resource type="Script" uid="uid://g11py7sqkmil" path="res://scenes/Settings/settings.gd" id="1_q2mcd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k2lax"]
+font_size = 80
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_q2mcd")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 1152.0
+offset_bottom = 110.0
+text = "설정"
+label_settings = SubResource("LabelSettings_k2lax")
+horizontal_alignment = 1
+
+[node name="TutorialTime" type="Node2D" parent="."]
+position = Vector2(199, 149)
+
+[node name="SpinBox" type="SpinBox" parent="TutorialTime"]
+offset_top = 30.0
+offset_right = 86.5625
+offset_bottom = 61.0
+value = 30.0
+suffix = "초"
+
+[node name="Label" type="Label" parent="TutorialTime"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "연습 시간"
+
+[node name="TutorialExist" type="Node2D" parent="."]
+position = Vector2(49, 149)
+
+[node name="CheckBox" type="CheckBox" parent="TutorialExist"]
+offset_top = 30.0
+offset_right = 24.0
+offset_bottom = 54.0
+button_pressed = true
+
+[node name="Label" type="Label" parent="TutorialExist"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "연습부터 시작"
+
+[node name="ActualTime" type="Node2D" parent="."]
+position = Vector2(338, 149)
+
+[node name="SpinBox" type="SpinBox" parent="ActualTime"]
+offset_top = 30.0
+offset_right = 86.5625
+offset_bottom = 61.0
+max_value = 600.0
+value = 300.0
+suffix = "초"
+
+[node name="Label" type="Label" parent="ActualTime"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "실제 시간"
+
+[node name="MouseUpChance" type="Node2D" parent="."]
+position = Vector2(490, 149)
+
+[node name="SpinBox" type="SpinBox" parent="MouseUpChance"]
+offset_top = 30.0
+offset_right = 86.5625
+offset_bottom = 61.0
+suffix = "%"
+
+[node name="Label" type="Label" parent="MouseUpChance"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "조각 놓칠 확률"
+
+[node name="PieceNum" type="Node2D" parent="."]
+position = Vector2(49, 259)
+
+[node name="SpinBox" type="SpinBox" parent="PieceNum"]
+offset_top = 30.0
+offset_right = 86.5625
+offset_bottom = 61.0
+max_value = 10.0
+value = 4.0
+suffix = "개"
+
+[node name="Label" type="Label" parent="PieceNum"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "조각 수"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 421.0
+offset_top = 375.0
+offset_right = 706.0
+offset_bottom = 456.0
+text = "세션 시작으로"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

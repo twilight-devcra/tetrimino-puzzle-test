@@ -5,6 +5,7 @@ class_name Problem
 @export var grid_height: int = 6
 @export var block_size: float = 80.0
 @export var piece_num: int = 4
+@export var drop_chance: float = 0.0
 var answer_grid: Array
 var pieces: Array[DraggablePiece] = []
 var preloaded: bool = false
@@ -62,11 +63,12 @@ func cell_neighbors(piece:DraggablePiece, x:int, y:int) -> int:
 				count += 1 
 	return count
 
-func init(grid_width:int, grid_height:int, block_size:float, piece_num:int) -> void:
+func init(grid_width:int, grid_height:int, block_size:float, piece_num:int, drop_chance:float) -> void:
 	self.grid_width = grid_width
 	self.grid_height = grid_height
 	self.block_size = block_size
 	self.piece_num = piece_num
+	self.drop_chance = drop_chance
 	self.make_question()
 
 func make_question() -> void:
@@ -81,7 +83,7 @@ func make_question() -> void:
 	
 	
 func add_piece(points: Array[Vector2i]):
-	var piece = $PieceSpawn.add_piece(points, self.block_size)
+	var piece = $PieceSpawn.add_piece(points, self.block_size, self.drop_chance)
 	piece.placed.connect(self.on_piece_placed)
 	self.pieces.append(piece)
 

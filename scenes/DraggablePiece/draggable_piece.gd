@@ -27,7 +27,7 @@ func collision_box(squares:Array[Vector2i], size:float) -> RectangleShape2D:
 	box.size = (max_size + Vector2i(1,1)) * size
 	return box
 
-func init(id:int, color:Color, size:float, squares:Array[Vector2i]) -> void:
+func init(id:int, color:Color, size:float, squares:Array[Vector2i], drop_chance:float) -> void:
 	$Sprite.init(color, size, squares)
 	self.id = id
 	self.cells = squares
@@ -35,6 +35,7 @@ func init(id:int, color:Color, size:float, squares:Array[Vector2i]) -> void:
 	self.piece_size = self.calculate_size(squares, size)
 	var col_box = RectangleShape2D.new()
 	col_box.size = self.piece_size * size
+	$DragArea.drop_chance = drop_chance
 	$DragArea/CollisionShape2D.shape = col_box
 	$DragArea/CollisionShape2D.position = self.piece_size * size / 2
 	

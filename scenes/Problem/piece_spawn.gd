@@ -48,9 +48,9 @@ func place_piece(piece:DraggablePiece) -> void:
 			
 	piece.initial_position = Vector2(x, y)
 
-func add_piece(block_coords:Array[Vector2i], block_size:float) -> DraggablePiece:
+func add_piece(block_coords:Array[Vector2i], block_size:float, drop_chance:float) -> DraggablePiece:
 	var piece:DraggablePiece = self.piece_factory.instantiate()
-	piece.init(self.next_piece_id, self.colors.pop_front(), block_size, block_coords)
+	piece.init(self.next_piece_id, self.colors.pop_front(), block_size, block_coords, drop_chance)
 	self.next_piece_id += 1
 	self.place_piece(piece)
 	self.pieces.append(piece)

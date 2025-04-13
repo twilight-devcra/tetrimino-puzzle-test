@@ -13,8 +13,14 @@ script = ExtResource("2_adkgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DragArea"]
 
+[node name="Timer" type="Timer" parent="DragArea"]
+wait_time = 0.3
+one_shot = true
+
 [node name="Sprite" type="Node2D" parent="."]
 material = ExtResource("3_adkgy")
 script = ExtResource("2_i8fr1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+
+[connection signal="timeout" from="DragArea/Timer" to="DragArea" method="_on_timer_timeout"]
