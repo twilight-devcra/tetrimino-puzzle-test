@@ -38,5 +38,9 @@ offset_bottom = 619.0
 text = "점수: 0"
 label_settings = SubResource("LabelSettings_1488a")
 
+[node name="PieceDropTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="solved" from="ProblemGenerator" to="." method="_on_problem_generator_solved"]
 [connection signal="timeout" from="TimerBar/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PieceDropTimer" to="." method="_on_piece_drop_timer_timeout"]

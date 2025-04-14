@@ -97,4 +97,19 @@ offset_right = 706.0
 offset_bottom = 456.0
 text = "세션 시작으로"
 
+[node name="MouseUpStartTime" type="Node2D" parent="."]
+position = Vector2(658, 149)
+
+[node name="SpinBox" type="SpinBox" parent="MouseUpStartTime"]
+offset_top = 30.0
+offset_right = 86.5625
+offset_bottom = 61.0
+max_value = 600.0
+suffix = "초"
+
+[node name="Label" type="Label" parent="MouseUpStartTime"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "조각 놓침 시작 시간"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

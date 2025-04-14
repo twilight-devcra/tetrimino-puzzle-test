@@ -4,4 +4,3 @@
 
 [node name="Session" type="Node2D"]
 script = ExtResource("1_llyuw")
-tutorial_time = 45.0

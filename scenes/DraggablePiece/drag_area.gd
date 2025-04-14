@@ -5,7 +5,9 @@ signal dropped
 signal lifted
 var is_lifted:bool = false
 var drop_chance:float = 0.0
-var has_dropped_once:bool = false
+var dropped_times:int = 0
+
+@export var max_dropped_times:int = 3
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and not event.pressed:
@@ -21,8 +23,8 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 		self.is_lifted = true
 		self.get_viewport().set_input_as_handled()
 		
-		if not self.has_dropped_once and randf() < self.drop_chance:
-			$Timer.start()
+		if self.dropped_times < self.max_dropped_times and randf() < self.drop_chance:
+			$Timer.start(randf() * 0.5)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,6 +37,6 @@ func _process(delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	self.has_dropped_once = true
+	self.dropped_times += 1
 	self.is_lifted = false
 	self.dropped.emit()

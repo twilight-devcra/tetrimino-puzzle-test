@@ -12,7 +12,8 @@ func _on_button_pressed() -> void:
 		$ActualTime/SpinBox.value,
 		$TutorialExist/CheckBox.button_pressed,
 		$MouseUpChance/SpinBox.value / 100.0,
-		$PieceNum/SpinBox.value
+		$PieceNum/SpinBox.value,
+		$MouseUpStartTime/SpinBox.value
 	)
 
 	self.get_tree().root.add_child(self.session_scene)
