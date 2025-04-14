@@ -27,10 +27,11 @@ text = "0"
 label_settings = SubResource("LabelSettings_5xhbo")
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+[node name="Button" type="Button" parent="."]
+offset_left = 1053.0
+offset_top = 604.0
+offset_right = 1138.0
+offset_bottom = 637.0
+text = "종료"
 
-[connection signal="gui_input" from="Control" to="." method="_on_control_gui_input"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -9,9 +9,11 @@ class_name Session
 
 var score:int
 
+var startscreen_factory = preload("res://scenes/StartScreen/StartScreen.tscn")
 var standby_factory = preload("res://scenes/Standby/Standby.tscn")
 var round_factory = preload("res://scenes/SingleRound/SingleRound.tscn")
 var final_results_factory = preload("res://scenes/FinalResult/FinalResult.tscn")
+var data:SessionData
 
 func init(tutorial_time:float, actual_time:float, do_tutorial:bool, piece_drop_chance:float, piece_num:int) -> void:
 	self.tutorial_time = tutorial_time
@@ -30,13 +32,16 @@ func standby(header:String) -> void:
 	standby_scene.queue_free()
 	
 func round(time:float, is_tutorial:bool) -> void:
+	self.data.start_round(is_tutorial)
 	var single_round = round_factory.instantiate()
 	single_round.init(time, self.piece_num, self.piece_drop_chance, is_tutorial)
+	single_round.problem_solved.connect(self.on_problem_solved)
 	self.add_child(single_round)
 	
 	self.score = await single_round.round_ended
 	self.remove_child(single_round)
 	single_round.queue_free()
+	self.data.end_round()
 	
 func final_results() -> void:
 	var result_screen = final_results_factory.instantiate()
@@ -47,7 +52,14 @@ func final_results() -> void:
 	self.remove_child(result_screen)
 	result_screen.queue_free()
 	
+func startscreen() -> void:
+	var start_screen = startscreen_factory.instantiate()
+	start_screen.tutorial_first = self.do_tutorial
+	self.add_child(start_screen)
 	
+	await start_screen.finished
+	self.remove_child(start_screen)
+	start_screen.queue_free()
 	
 func start_tutorial() -> void:
 	await self.standby('연습')
@@ -56,11 +68,19 @@ func start_tutorial() -> void:
 func start_actual() -> void:
 	await self.standby('진짜 시작')
 	await self.round(self.actual_time, false)
+	
+func on_problem_solved() -> void:
+	self.data.problem_solved()
 
 func _ready() -> void:
+	await self.startscreen()
+	
+	self.data = SessionData.new(self.tutorial_time, self.actual_time, self.piece_drop_chance)
+	
 	if self.do_tutorial:
 		await self.start_tutorial()
 	await self.start_actual()
+	self.data.export()
 	await self.final_results()
 	
 	var options_scene = load("res://scenes/Settings/Settings.tscn").instantiate()

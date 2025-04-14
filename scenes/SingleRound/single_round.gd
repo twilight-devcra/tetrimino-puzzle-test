@@ -5,6 +5,7 @@ var score:int = 0
 var is_tutorial:bool
 
 signal round_ended
+signal problem_solved
 
 func init(timer:float, piece_num:int, drop_chance:float, is_tutorial:bool=false) -> void:
 	self.timer = timer
@@ -21,6 +22,7 @@ func _ready() -> void:
 
 
 func _on_problem_generator_solved() -> void:
+	self.problem_solved.emit()
 	self.score += 1
 	$Score.text = '점수: ' + str(self.score)
 
